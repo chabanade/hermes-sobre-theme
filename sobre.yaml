@@ -1,0 +1,84 @@
+# ~/.hermes/dashboard-themes/sobre.yaml
+# -----------------------------------------------------------------------------
+# Theme "Sobre" pour le dashboard web de Hermes Agent.
+# Objectif (issue upstream #36865) : interface SOMBRE, UNIE, lisible, sans
+# textures ni polices decoratives. Confort visuel, faible distraction.
+# N'utilise QUE des reglages documentes (extending-the-dashboard.md) -> valide
+# structurellement. Construit le 2026-06-14. A ajuster apres rendu reel.
+# -----------------------------------------------------------------------------
+name: sobre
+label: Sobre
+description: Sombre, uni et lisible, sans textures ni fioritures.
+
+# --- Palette (3 couches) ------------------------------------------------------
+# background = fond le plus profond ; midground = texte + accents ;
+# foreground = surbrillance du dessus (laissee invisible, alpha 0).
+palette:
+  background:
+    hex: "#16181b"        # gris anthracite neutre (pas un noir pur = moins agressif)
+    alpha: 1.0
+  midground:
+    hex: "#e7e9ec"        # blanc cassé pour le texte (fort contraste, lisible)
+    alpha: 1.0
+  foreground:
+    hex: "#ffffff"
+    alpha: 0.0            # pas de surbrillance brillante par-dessus = look sobre
+  warmGlow: "rgba(0, 0, 0, 0)"   # vignette eteinte (aucun halo)
+  noiseOpacity: 0                # *** grain / texture de fond COUPE ***
+
+# --- Typographie : polices SYSTEME (aucune police decorative chargee) ---------
+typography:
+  fontSans: 'system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+  fontMono: 'ui-monospace, "Cascadia Mono", "Segoe UI Mono", Consolas, "Liberation Mono", monospace'
+  fontDisplay: 'system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+  baseSize: "15px"
+  lineHeight: "1.6"
+  letterSpacing: "0"
+  # (pas de fontUrl : on ne charge AUCUNE police externe -> rien de decoratif)
+
+# --- Mise en page : coins discrets, espacement confortable --------------------
+layout:
+  radius: "0.375rem"
+  density: comfortable
+
+layoutVariant: standard
+
+# --- Pas d'image de fond (opt-out explicite du backdrop) -----------------------
+assets:
+  bg: "none"
+
+# --- Surfaces UNIES (on tue les degrades / formes biseautees) -----------------
+componentStyles:
+  card:
+    background: "#1c1f23"                              # carte unie, un cran plus claire que le fond
+    boxShadow: "inset 0 0 0 1px rgba(231, 233, 236, 0.12)"   # bordure fine et discrete
+  header:
+    background: "#16181b"                              # barre du haut unie (pas de degrade)
+  sidebar:
+    background: "#15171a"                              # menu lateral uni
+  page:
+    background: "#16181b"
+
+# --- Accents calmes, fort contraste, rien de criard --------------------------
+colorOverrides:
+  primary: "#6f9ad1"            # bleu acier sobre (boutons / liens actifs)
+  primaryForeground: "#0f1113"
+  accent: "#6f9ad1"
+  ring: "#6f9ad1"              # halo de focus calme
+  border: "rgba(231, 233, 236, 0.14)"
+  input: "rgba(231, 233, 236, 0.14)"
+  muted: "#22262b"
+  mutedForeground: "#aab1ba"   # texte secondaire lisible (contraste >= 0.7)
+  destructive: "#e0676b"       # rouge clair mais doux (alertes)
+
+# --- CSS d'appoint : minimal et robuste (selecteurs standard uniquement) ------
+customCSS: |
+  /* Selection de texte lisible sur fond sombre. */
+  ::selection { background: rgba(111, 154, 209, 0.35); }
+  /* Barres de defilement discretes (navigateurs WebKit). */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(231, 233, 236, 0.16);
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-track { background: transparent; }
